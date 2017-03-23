@@ -39,6 +39,14 @@ class ActionDialog extends Component{
     if (this.props.warning) {
       maxHeight += 57;
     }
+
+    const scrollbarSize = (() => {
+      if (!this.props.maxRowCount) { return 0; }
+
+      return this.props.maxRowCount < pageDataSource.length ? null : 0;
+    })();
+    const rowCount = scrollbarSize === null ? this.props.maxRowCount : pageDataSource.length;
+
     return (
       <Modal
         show={this.props.show}
@@ -66,8 +74,8 @@ class ActionDialog extends Component{
               selectable={false}
               resizableColumns={false}
               pager={false}
-              style={{height: (this.props.rowHeight || 30) * pageDataSource.length + 30}}
-              scrollbarSize={0}
+              style={{height: (this.props.rowHeight || 30) * rowCount + 30}}
+              scrollbarSize={scrollbarSize}
               rowHeight={this.props.rowHeight}
             />
             {this.props.pager && (
@@ -115,7 +123,8 @@ ActionDialog.propTypes = {
   bsSize: PropTypes.string,
   rowHeight: PropTypes.number,
   childPosition: PropTypes.string,
-  pager: PropTypes.bool
+  pager: PropTypes.bool,
+  maxHeight: PropTypes.number
 };
 
 ActionDialog.defaultProps = {
