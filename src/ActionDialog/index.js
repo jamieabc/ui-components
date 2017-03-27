@@ -43,9 +43,9 @@ class ActionDialog extends Component{
     const scrollbarSize = (() => {
       if (!this.props.maxRowCount) { return 0; }
 
-      return this.props.maxRowCount < pageDataSource.length ? null : 0;
+      return this.props.maxRowCount < pageDataSource.length ? 20 : 0;
     })();
-    const rowCount = scrollbarSize === null ? this.props.maxRowCount : pageDataSource.length;
+    const rowCount = scrollbarSize > 0 ? this.props.maxRowCount : pageDataSource.length;
 
     return (
       <Modal
