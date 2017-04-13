@@ -95,7 +95,7 @@ class DataTable extends Component {
       } else {
         query = Object.assign({}, newQuery, {offset: 0});
       }
-      this.props.onPageChange(newQuery);
+      this.props.onPageChange(query);
     };
 
     this.onColumnResize = (firstCol, firstSize) => {
@@ -145,9 +145,11 @@ class DataTable extends Component {
     const newColumnNames = map(nextProps.columns, 'name').sort();
     if (isEqual(oldColumnNames, newColumnNames)){
       this.columns = this.columns.map((oldColumn) => {
-        return find(nextProps.columns, (column) => {
+        let newColumn = find(nextProps.columns, (column) => {
           return oldColumn.name === column.name;
         });
+        newColumn.width = oldColumn.width || newColumn.width;
+        return newColumn;
       });
     } else {
       this.columns = nextProps.columns;
