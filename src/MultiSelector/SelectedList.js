@@ -109,7 +109,8 @@ class SelectedList extends Component {
           <strong>{this.props.title}</strong>
         </div>
         <div className={`picked-items picked-items__height-${this.props.showBreadCrumb ? 'breadcrumb' : 'default'}`}>
-          {this.renderItems(this.props.allSelectedItems, this.props.inheritedItems)}
+          {this.renderItems(this.props.inheritedItems, this.props.inheritedItems)}
+          {this.renderItems(this.props.allSelectedItems, [])}
         </div>
         <InfoDialog
           show={this.state.showRemoveAll}
