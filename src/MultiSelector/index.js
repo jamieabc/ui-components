@@ -9,8 +9,6 @@ import uniqBy from 'lodash.uniqby';
 const MultiSelector = (props) => {
   let allSelectedItems = cloneDeep(props.selectedItems);
   if (props.inheritable) {
-    const inheritedItems = cloneDeep(props.inheritedItems);
-    allSelectedItems = uniqBy(inheritedItems.concat(allSelectedItems), 'id');
     props.selectedItems.forEach(item => {
       const selectedItem = find(allSelectedItems, i => { return i.id == item.id; });
       if (selectedItem.children) {
