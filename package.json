@@ -5,8 +5,8 @@
   "description": "A collection of react components used by several internal projects.",
   "main": "lib/index.js",
   "scripts": {
-    "compile": "babel --copy-files --out-dir lib src",
-    "watch": "babel --watch --copy-files --out-dir lib src"
+    "compile": "babel --ignore __tests__,__mocks__ --copy-files --out-dir lib src",
+    "watch": "babel --ignore __tests__,__mocks__ --watch --copy-files --out-dir lib src"
   },
   "babel": {
     "presets": [
@@ -21,8 +21,8 @@
   "dependencies": {
     "lodash": "^3.10.1",
     "lodash.uniqby": "^4.7.0",
-    "react-addons-create-fragment": "^15.3.0",
-    "jquery": "2.1.1"
+    "nprogress": "^0.2.0",
+    "react-addons-create-fragment": "^15.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
