@@ -7,6 +7,12 @@ class Merger {
     this.overrideKey = options.overrideKey;
   }
 
+  isOverride(target, src) {
+    if (src[this.overrideKey] === true) { return true; }
+
+    return target[this.overrideKey] !== src[this.overrideKey];
+  }
+
   typeAccepted(...args) {
     return args.reduce((memo, arg) => (
       memo && (typeof(arg) === 'object')
@@ -40,7 +46,9 @@ class Merger {
     } else {
       // object
       return Object.keys(src).reduce((memo, key) => {
-        memo[key] = (target[key] && !src[this.overrideKey]) ? this.run(target[key], src[key]) : src[key];
+        memo[key] = (target[key] && !this.isOverride(target, src)) ?
+          this.run(target[key], src[key]) :
+          src[key];
         return memo;
       }, {});
     }

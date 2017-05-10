@@ -22,7 +22,9 @@ class SelectorWithPanel extends Component {
     this.findRecord = (id, src = 'dataSource') => (
       flatten([src]).reduce((memo, s) => {
         if (memo.index > -1) { return memo; }
-        const i = this.props[s].findIndex((r) => r[this.props.idKey] === id)
+        /* eslint-disable eqeqeq */
+        const i = this.props[s].findIndex((r) => r[this.props.idKey] == id)
+        /* eslint-enable eqeqeq */
 
         return { index: i, record: this.props[s][i] }
       }, { index: -1, record: null })
@@ -40,17 +42,21 @@ class SelectorWithPanel extends Component {
       if (!id || id.length === 0) { return false; }
 
       if (!options.strict) {
+        /* eslint-disable eqeqeq */
         const ancestorSelected = this.props.ancestors.some(r =>
           ObjectArray.includes(this.props.selected.concat(this.props.reserved),
-                               (o) => o[this.props.idKey] === r[this.props.idKey] && o.selected)
+                               (o) => o[this.props.idKey] == r[this.props.idKey] && o.selected)
         );
+        /* eslint-enable eqeqeq */
         if (ancestorSelected) { return ancestorSelected; }
       }
 
+      /* eslint-disable eqeqeq */
       const itemSelected = flatten([id]).every(id =>
         ObjectArray.includes(this.props.selected.concat(this.props.reserved),
-                             (r) => r[this.props.idKey] === id && r.selected)
+                             (r) => r[this.props.idKey] == id && r.selected)
       );
+      /* eslint-enable eqeqeq */
       return itemSelected;
     };
 
@@ -90,19 +96,19 @@ class SelectorWithPanel extends Component {
     this.props.onQuery(Object.assign({}, this.props.query, params));
   }
 
-  handleToggle(ids, beforeSelected) {
+  handleToggle(ids, beforeSelected, selectedKey) {
     if (beforeSelected) {
       this.handleUnselect(ids);
     } else {
-      this.handleSelect(ids);
+      this.handleSelect(ids, selectedKey);
     }
   }
 
-  handleSelect(id) {
+  handleSelect(id, selectedKey) {
     // no need to do type cast, node.id is required to be a string
     const records = this.findRecords(flatten([id]));
     const decoratedRecords = records.map(r => (
-      Object.assign({}, r, { selected: true })
+      Object.assign({}, r, { selected: selectedKey || true })
     ));
 
     const nextSelected = Merger.run(this.props.selected,
@@ -136,6 +142,7 @@ class SelectorWithPanel extends Component {
 
           progressBar={this.props.progressBar}
 
+          columnFactory={this.props.columnFactory}
           dataSource={this.props.dataSource}
           ancestors={this.props.ancestors}
           query={this.props.query}
@@ -172,6 +179,7 @@ SelectorWithPanel.propTypes = {
     placeholder: PropTypes.string,
   }),
 
+  columnFactory: PropTypes.func,
   dataSource: PropTypes.arrayOf(nodeSchema),
   selected: PropTypes.arrayOf(nodeSchema),
   reserved: PropTypes.arrayOf(nodeSchema),
@@ -199,7 +207,8 @@ SelectorWithPanel.defaultProps = {
   dataSource: [],
   selected: [],
   reserved: [],
-  ancestors: []
+  ancestors: [],
+  progressBar: null
 };
 
 SelectorWithPanel.childContextTypes = {

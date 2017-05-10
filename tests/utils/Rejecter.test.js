@@ -1,4 +1,4 @@
-import Rejecter from '../Rejecter';
+import Rejecter from '../../src/utils/Rejecter';
 
 it('removes basic element from the array', () => {
   const src = ['a', 'b', 'c'];

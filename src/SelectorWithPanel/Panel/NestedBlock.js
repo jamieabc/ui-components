@@ -19,7 +19,13 @@ function build(rows, props) {
 }
 
 const Row = ({ r, onClick, children, reserved, noTip }) => {
-  const klassNames = classNames(['callout', 'text-hidden', { 'callout-success': r.selected, 'text-success': r.selected, 'callout-default': !r.selected }]);
+  const klassNames = classNames(['callout', 'text-hidden',
+                                 {
+                                   'callout-success': [true, 'included'].includes(r.selected),
+                                   'text-success': [true, 'included'].includes(r.selected),
+                                   'callout-danger': r.selected === 'excluded',
+                                   'text-danger': r.selected === 'excluded',
+                                   'callout-default': !r.selected }]);
   const tipClassNames = classNames(['label', 'pull-right', { 'label-default': !r.selected, 'label-success': r.selected }]);
 
   const btn = (() => {

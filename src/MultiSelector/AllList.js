@@ -10,7 +10,7 @@ import uniqBy from 'lodash.uniqby';
 import cloneDeep from 'lodash/lang/cloneDeep';
 import classNames from 'classnames';
 import React, { Component, PropTypes } from 'react';
-import DataTable, { Pagination } from 'ui-components/lib/DataTable';
+import DataTable, { Pagination } from '../DataTable';
 import SearchBox from '../SearchBox';
 import Helpers from '../utils/Helpers';
 
