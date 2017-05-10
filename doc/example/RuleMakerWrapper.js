@@ -2,6 +2,17 @@ import React, { Component } from 'react';
 import i18n from 'i18next';
 
 import RuleMaker from 'ui-components/lib/RuleMaker';
+import RMStrategyRunner from 'ui-components/lib/RuleMaker/Strategies/Runner';
+import RMStrategyHelpers from 'ui-components/lib/RuleMaker/Strategies/SHelper';
+
+function DiscrimnationStrategy({ record, selected, ancestors }) {
+  if (record.id % 2 === 0) {
+    return RMStrategyHelpers.change(record, { disabled: ['included', 'excluded'] });
+  }
+
+  return RMStrategyHelpers.noChange;
+}
+RMStrategyRunner.register('no-even', DiscrimnationStrategy);
 
 const DATA_SOURCE = [
   { id: 1, name: 'China', x: 'HARD', expandable: true },
@@ -25,7 +36,7 @@ const DATA_SOURCE = [
   { id: 151, parent_id: 15, name: 'Geekpark' },
 ];
 
-class RuleMakerWrapper.js extends Component {
+class RuleMakerWrapper extends Component {
   constructor(props) {
     super(props)
 
@@ -128,7 +139,7 @@ class RuleMakerWrapper.js extends Component {
         query={this.state.query}
         dataSource={this.state.dataSource}
         selected={this.state.selected}
-        strategies={['basic', 'inheritance', 'sibling']}
+        strategies={['basic', 'inheritance', 'sibling', 'no-even']}
 
         onQuery={this.handleQuery}
         onOverrideSelected={this.handleOverrideSelected}
@@ -139,4 +150,4 @@ class RuleMakerWrapper.js extends Component {
   }
 }
 
-export default RuleMakerWrapper.js;
+export default RuleMakerWrapper;
