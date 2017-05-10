@@ -72,7 +72,11 @@ import SelectorWithPanel from 'ui-components/lib/SelectorWithPanel';
 ### SelectorWithPanel
 ![SelectorWithPanelView](https://github.com/quadas/ui-components/blob/628df6550237c3345e65ded7c0713c00a3fbf10d/doc/example/SelectorWithPanelView.png?raw=true)
 
-It will replace the `MultiSelector` which lacks of the support of multi(more than 2) level datasource. `SelectorWithPanel` consists of two parts named "Selector" and "Panel". "Selector" could be used to traverse the given data level by level. Those selected items are displayed in a nested form in "Panel".
+It will replace the `MultiSelector` which lacks of the support of multi(more than 2) level datasource.
+
+`SelectorWithPanel` consists of two parts named "Selector" and "Panel".
+- "Selector" could be used to traverse the given data level by level.
+- Those selected items are displayed in a nested form in "Panel".
 
 ```
 <SelectorWithPanel
@@ -97,8 +101,10 @@ It will replace the `MultiSelector` which lacks of the support of multi(more tha
 [Example](https://github.com/quadas/ui-components/blob/628df6550237c3345e65ded7c0713c00a3fbf10d/doc/example/RuleMakerWrapper.js)
 
 This usually works as a rule generator containg expression such as "China except Anhui and Danshui". That's how the name comes.
-`RuleMaker`(R) is a component where a `SelectorWithPanel`(S) underlies.
-The major difference between R and S is the former one has an additional checkbox identifying "excluded" which is opposited to "included".
-It doesn't make sense to have a record both "included" and "excluded". Thus, special strategies are required to prevent this. For instance, assume we have data like "China > Anhui", if "China" gets selected the "exclude" button of "Anhui" goes disabled.
+
+`RuleMaker`(R) is a component where a `SelectorWithPanel`(S) underlies. The major difference between R and S is the former one has an additional checkbox identifying "excluded" which is opposited to "included".
+
+It doesn't make sense to have a record both "included" and "excluded".
+Thus, special strategies are required to prevent this. For instance, assume we have data like "China > Anhui", if "China" gets selected the "exclude" button of "Anhui" goes disabled.
 
 And to be noted, it is possible to have ad-hoc strategy out of the component. For more detail, please check out the example.
