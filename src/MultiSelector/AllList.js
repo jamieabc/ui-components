@@ -1,5 +1,6 @@
 /* eslint eqeqeq: "off" */
 import find from 'lodash/collection/find';
+import flatten from 'lodash/array/flatten';
 import findIndex from 'lodash/array/findIndex';
 import intersection from 'lodash/array/intersection';
 import isEqual from 'lodash/lang/isEqual'
@@ -39,10 +40,9 @@ class AllList extends Component {
             parentItem.children.push({id: item.id, name: item.name});
           }
         } else {
-          const parentItem = find(this.props.allItems, i => { return i.id == item.parent_id; });
           selectedItems.push({
-            id: parentItem.id,
-            name: parentItem.name,
+            id: item.parent_id,
+            name: item.parent_name,
             children: [{id: item.id, name: item.name}]
           });
         }
@@ -165,6 +165,15 @@ class AllList extends Component {
       return isEqual(intersection(listIds, selectedIds).sort(), listIds.sort());
     };
 
+    this.isChecked = (ls, id) => {
+      const ids = ls.map((item) => {
+        if (!item.children || item.children.length === 0) { return item.id; }
+
+        return item.children.map((i) => i.id);
+      });
+      return flatten(ids).includes(id);
+    };
+
     this.getSelectorColumn = () => {
       return [{
         name: 'flag',
@@ -175,13 +184,7 @@ class AllList extends Component {
         reorderable: false,
         style: { textAlign: 'center' },
         render: (value, data) => {
-          const parentId = this.props.dataTableProps.query.parent_id;
-          const checked = find(this.props.allSelectedItems, c => {
-            if (parentId) {
-              return find(c.children, i => { return i.id == data.id })
-            }
-            return c.id == data.id
-          });
+          const checked = this.isChecked(this.props.allSelectedItems, data.id);
           return <i onClick={this.handleSelect.bind(this, data)} className={classNames('fa', 'fa-check-circle', 'fa-lg', {'text-success': checked})}/>;
         }
       }];
