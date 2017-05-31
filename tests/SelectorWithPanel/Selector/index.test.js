@@ -1,13 +1,12 @@
 import React from 'react';
-import DataTable, { Pagination } from 'ui-components/lib/DataTable';
-import SearchBox from 'ui-components/lib/SearchBox';
+import DataTable, { Pagination } from '../../../src/DataTable';
+import SearchBox from '../../../src/SearchBox';
 
-import Config from '../../Config';
-import Selector from '../../Selector';
-import Breadcrumb from '../Breadcrumb';
+import Selector from '../../../src/SelectorWithPanel/Selector';
+import Breadcrumb from '../../../src/SelectorWithPanel/Selector/Breadcrumb';
 
 it('renders props.ancestors as a breadcrumb', () => {
-  const ancestors = [{ [Config.ID_KEY]: '1' }];
+  const ancestors = [{ prop_id: '1' }];
   const wrapper = shallow(
     <Selector ancestors={ancestors} />
   );
@@ -16,18 +15,19 @@ it('renders props.ancestors as a breadcrumb', () => {
 });
 
 it('passes props.dataSource to DataTable', () => {
-  const dataSource = [{ [Config.ID_KEY]: '1' }];
+  const dataSource = [{ prop_id: '1' }];
 
   const wrapper= shallow(<Selector dataSource={dataSource} isSelected={jest.fn()} />);
   expect(wrapper.find(DataTable).prop('dataSource')).toEqual(dataSource);
 });
 
 it('formulates the correct columns', () => {
-  const dataSource = [{ [Config.ID_KEY]: '1', selected: true }];
+  const dataSource = [{ prop_id: '1', selected: true }];
   const onQuery = jest.fn();
   const onToggle = jest.fn();
   const wrapper= shallow(
-    <Selector dataSource={dataSource} onQuery={onQuery} onToggle={onToggle} isSelected={(id) => id === '1'} />
+    <Selector dataSource={dataSource} onQuery={onQuery} onToggle={onToggle} isSelected={(id) => id === '1'} />,
+    { context: { idKey: 'prop_id' } }
   );
 
   const columns = wrapper.find(DataTable).prop('columns');
@@ -37,13 +37,13 @@ it('formulates the correct columns', () => {
   expect(columns[0].title.props['checked']).toBe(true);
   columns[0].title.props['onClick']();
   expect(onToggle).toBeCalledWith(['1'], true);
-  const checkboxRow = columns[0].render(null, { [Config.ID_KEY]: '2' });
+  const checkboxRow = columns[0].render(null, { prop_id: '2' });
   expect(checkboxRow.props['checked']).toBeFalsy();
   checkboxRow.props['onClick']();
   expect(onToggle).toBeCalledWith('2', false);
 
   // name
-  const nameRow = columns[1].render(null, { [Config.ID_KEY]: '3', expandable: true });
+  const nameRow = columns[1].render(null, { prop_id: '3', expandable: true });
   nameRow.props['onClick']();
   expect(onQuery).toBeCalledWith({ parent_id: '3' });
 })

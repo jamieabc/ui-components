@@ -1,13 +1,12 @@
 import React from 'react';
 import isEqual from 'lodash/lang/isEqual';
 
-import Config from '../Config';
-import SelectorWithPanel from '../../SelectorWithPanel';
-import Selector from '../Selector';
-import Panel from '../Panel';
-import Merger from '../../../../utils/Merger';
+import SelectorWithPanel from '../../src/SelectorWithPanel';
+import Selector from '../../src/SelectorWithPanel/Selector';
+import Panel from '../../src/SelectorWithPanel/Panel';
+import Merger from '../../src/utils/Merger';
 
-jest.mock('../../../../utils/Merger');
+jest.mock('../../src/utils/Merger');
 
 it('passes props to Selector', () => {
   const wrapper = shallow(<SelectorWithPanel />);
@@ -42,20 +41,20 @@ describe('#handleQuery', () => {
 
   it('handles parent_id(null or non-null) with props.onOverrideAncestors', () => {
     const onOverrideAncestors = jest.fn();
-    const dataSource = [{ [Config.ID_KEY]: 1 }, { [Config.ID_KEY]: 2 }];
+    const dataSource = [{ prop_id: 1 }, { prop_id: 2 }];
     const onQuery = jest.fn();
     const wrapper = shallow(
       <SelectorWithPanel
         onOverrideAncestors={onOverrideAncestors}
         dataSource={dataSource}
         onQuery={onQuery}
-        ancestors={[{ [Config.ID_KEY]: -2 }, { [Config.ID_KEY]: -1 }, { [Config.ID_KEY]: 0 }]}
+        ancestors={[{ prop_id: -2 }, { prop_id: -1 }, { prop_id: 0 }]}
       />
     );
     const params = { parent_id: 1 };
     wrapper.instance().handleQuery(params);
 
-    expect(onOverrideAncestors).toBeCalledWith([{ [Config.ID_KEY]: -2 }, { [Config.ID_KEY]: -1 }, { [Config.ID_KEY]: 0 }, { [Config.ID_KEY]: 1 }]);
+    expect(onOverrideAncestors).toBeCalledWith([{ prop_id: -2 }, { prop_id: -1 }, { prop_id: 0 }, { prop_id: 1 }]);
     expect(onQuery).toBeCalled();
 
     const emptyParams = { parent_id: null };
@@ -64,28 +63,28 @@ describe('#handleQuery', () => {
 
     const ancestorParams = { parent_id: -1 };
     wrapper.instance().handleQuery(ancestorParams);
-    expect(onOverrideAncestors).toBeCalledWith([{ [Config.ID_KEY]: -2 }, { [Config.ID_KEY]: -1 }]);
+    expect(onOverrideAncestors).toBeCalledWith([{ prop_id: -2 }, { prop_id: -1 }]);
   })
 })
 
 describe('#withAncestors', () => {
   it('will chain up ancestors and given param', () => {
-    const ancestors = [{ [Config.ID_KEY]: '1' }, { [Config.ID_KEY]: '11' }, { [Config.ID_KEY]: '111' }];
+    const ancestors = [{ prop_id: '1' }, { prop_id: '11' }, { prop_id: '111' }];
     const wrapper = shallow(
       <SelectorWithPanel ancestors={ancestors} />
     );
 
-    const actual = wrapper.instance().withAncestors({ [Config.ID_KEY]: '1111' });
-    expect(actual).toEqual({ [Config.ID_KEY]: '1', children: [{ [Config.ID_KEY]: '11', children: [{ [Config.ID_KEY]: '111', children: [{ [Config.ID_KEY]: '1111' }] }] }] });
+    const actual = wrapper.instance().withAncestors({ prop_id: '1111' });
+    expect(actual).toEqual({ prop_id: '1', children: [{ prop_id: '11', children: [{ prop_id: '111', children: [{ prop_id: '1111' }] }] }] });
   })
 });
 
 describe('#handleSelect', () => {
   it('calls Merger', () => {
-    const ancestors = [{ [Config.ID_KEY]: '1' }, { [Config.ID_KEY]: '11' }];
-    const selected = [{ [Config.ID_KEY]: '1', children: [{ [Config.ID_KEY]: '12' }] }];
+    const ancestors = [{ prop_id: '1' }, { prop_id: '11' }];
+    const selected = [{ prop_id: '1', children: [{ prop_id: '12' }] }];
     const params = '111';
-    const dataSource = [{ [Config.ID_KEY]: '111' }];
+    const dataSource = [{ prop_id: '111' }];
     const onOverrideSelected = jest.fn();
 
     const wrapper = shallow(
@@ -93,7 +92,7 @@ describe('#handleSelect', () => {
     );
     wrapper.instance().handleSelect(params);
 
-    const expected = { [Config.ID_KEY]: '1', children: [{ [Config.ID_KEY]: '11', children: [{ [Config.ID_KEY]: '111', selected: true }] }] };
+    const expected = { prop_id: '1', children: [{ prop_id: '11', children: [{ prop_id: '111', selected: true }] }] };
     const actual = isEqual(Merger.run.mock.calls[0][1], expected);
     expect(actual).toBe(true);
     expect(onOverrideSelected).toBeCalled();
@@ -103,8 +102,8 @@ describe('#handleSelect', () => {
 describe('#handleUnselect', () => {
   it('calls Rejecter', () => {
     const onOverrideSelected = jest.fn();
-    const selected = [{ [Config.ID_KEY]: '1', children: [{ [Config.ID_KEY]: '12' }] },
-                      { [Config.ID_KEY]: '2', children: [], selected: true }];
+    const selected = [{ prop_id: '1', children: [{ prop_id: '12' }] },
+                      { prop_id: '2', children: [], selected: true }];
     const params = '12';
     const wrapper = shallow(
       <SelectorWithPanel
@@ -115,7 +114,7 @@ describe('#handleUnselect', () => {
 
     wrapper.instance().handleUnselect(params);
     const actual = isEqual(onOverrideSelected.mock.calls[0][0],
-                           [{ [Config.ID_KEY]: '2', children: [], selected: true }]);
+                           [{ prop_id: '2', children: [], selected: true }]);
 
     expect(actual).toBe(true);
   })
@@ -134,10 +133,10 @@ describe('#handleUpload', () => {
 
 describe('#handleToggle', () => {
   it('makes a choice between handleSelect & handleUnselect', () => {
-    const ancestors = [{ [Config.ID_KEY]: '1' }, { [Config.ID_KEY]: '11' }];
-    const selected = [{ [Config.ID_KEY]: '1', children: [{ [Config.ID_KEY]: '12' }] }];
+    const ancestors = [{ prop_id: '1' }, { prop_id: '11' }];
+    const selected = [{ prop_id: '1', children: [{ prop_id: '12' }] }];
     const params = '111';
-    const dataSource = [{ [Config.ID_KEY]: '111' }];
+    const dataSource = [{ prop_id: '111' }];
     const onOverrideSelected = jest.fn();
 
     const wrapper = shallow(
@@ -145,7 +144,7 @@ describe('#handleToggle', () => {
     );
     wrapper.instance().handleToggle(params, false);
 
-    const expected = { [Config.ID_KEY]: '1', children: [{ [Config.ID_KEY]: '11', children: [{ [Config.ID_KEY]: '111', selected: true }] }] };
+    const expected = { prop_id: '1', children: [{ prop_id: '11', children: [{ prop_id: '111', selected: true }] }] };
     const actual = isEqual(Merger.run.mock.calls[0][1], expected);
     expect(actual).toBe(true);
     expect(onOverrideSelected).toBeCalled();

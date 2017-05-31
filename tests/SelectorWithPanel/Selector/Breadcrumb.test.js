@@ -1,8 +1,7 @@
 import React from 'react';
 
-import Config from '../../Config';
-import Breadcrumb from '../Breadcrumb';
-import LinkOrText from '../LinkOrText';
+import Breadcrumb from '../../../src/SelectorWithPanel/Selector/Breadcrumb';
+import LinkOrText from '../../../src/SelectorWithPanel/Selector/LinkOrText';
 
 describe('props.path', () => {
   it('renders the home when no path given', () => {
@@ -14,8 +13,8 @@ describe('props.path', () => {
 
   it('appends to home', () => {
     const path = [
-      { [Config.ID_KEY]: 1, name: '1' },
-      { [Config.ID_KEY]: 2, name: '2' },
+      { prop_id: 1, name: '1' },
+      { prop_id: 2, name: '2' },
     ];
     const wrapper = shallow(
       <Breadcrumb path={path} />
@@ -44,7 +43,8 @@ describe('props.onClick', () => {
     it('fires onClick with null', () => {
       const onClick = jest.fn();
       const wrapper = mount(
-        <Breadcrumb path={[{ [Config.ID_KEY]: '1' }]} onClick={onClick} />
+        <Breadcrumb path={[{ prop_id: '1' }]} onClick={onClick} />,
+        { context: { idKey: 'prop_id' } }
       );
       const home = wrapper.find('li').first();
       home.find('a').simulate('click');
@@ -55,16 +55,17 @@ describe('props.onClick', () => {
 
   it('fires with id', () => {
     const onClick = jest.fn();
-    const path = [{ [Config.ID_KEY]: '1', name: 'a' },
-                  { [Config.ID_KEY]: '2', name: 'b' }];
+    const path = [{ prop_id: '1', name: 'a' },
+                  { prop_id: '2', name: 'b' }];
     const wrapper = mount(
-      <Breadcrumb path={path} onClick={onClick} />
+      <Breadcrumb path={path} onClick={onClick} />,
+      { context: { idKey: 'prop_id' } }
     );
     const lis = wrapper.find(LinkOrText);
 
     lis.forEach((li, i) => {
       const link = li.find('a');
-      const parent_id = path[i - 1] ? path[i - 1][Config.ID_KEY] : null;
+      const parent_id = path[i - 1] ? path[i - 1].prop_id : null;
 
       if (i === path.length) {
         expect(link.length).toEqual(0);

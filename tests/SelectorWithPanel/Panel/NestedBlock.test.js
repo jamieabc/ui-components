@@ -1,13 +1,12 @@
 import React from 'react';
 
-import Config from '../../Config';
-import NestedBlock from '../NestedBlock';
+import NestedBlock from '../../../src/SelectorWithPanel/Panel/NestedBlock';
 
 const selected = [
-  { [Config.ID_KEY]: '1', name: '1',
-    children: [{ [Config.ID_KEY]: '11', name: '11', selected: true },
-               { [Config.ID_KEY]: '12', name: '12', selected: true }] },
-  { [Config.ID_KEY]: '2', name: '2', selected: true, children: [] }];
+  { prop_id: '1', name: '1',
+    children: [{ prop_id: '11', name: '11', selected: true },
+               { prop_id: '12', name: '12', selected: true }] },
+  { prop_id: '2', name: '2', selected: true, children: [] }];
 
 describe('props.dataSource', () => {
   it('generates the nested', () => {
@@ -28,11 +27,12 @@ describe('props.onRemove', () => {
   it('fires while trying to remove', () => {
     const onRemove = jest.fn();
     const wrapper = shallow(
-      <NestedBlock dataSource={selected} onRemove={onRemove} />
+      <NestedBlock dataSource={selected} onRemove={onRemove} />,
+      { context: { idKey: 'prop_id' } }
     );
 
     wrapper.find(NestedBlock.Row).first().prop('onClick')();
-    expect(onRemove).not.toBeCalled();
+    expect(onRemove).toBeCalled();
     wrapper.find(NestedBlock.Row).last().prop('onClick')();
     expect(onRemove).toBeCalledWith('2');
   })
@@ -41,7 +41,8 @@ describe('props.onRemove', () => {
 describe('NestedBlock.Row', () => {
   describe('props.reserved', () => {
     it('when given it renders no button', () => {
-      const wrapper = shallow(<NestedBlock.Row r={{ reserved: true }} reserved />);
+      const wrapper = shallow(<NestedBlock.Row r={{ reserved: true }} reserved />,
+                              { context: { idKey: 'prop_id' } });
 
       expect(wrapper.find('span').text().includes('Placement')).toBe(true);
     })

@@ -56,7 +56,10 @@ module.exports = {
   },
 
   'globals': {
-    '$': false
+    '$': false,
+    'shallow': false,
+    'mount': false,
+    'render': false
   },
 
   rules: {

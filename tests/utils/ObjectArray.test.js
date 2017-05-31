@@ -1,4 +1,4 @@
-import ArrayHelper from '../ObjectArray';
+import ArrayHelper from '../../src/utils/ObjectArray';
 
 describe('flattenWith', () => {
   it('converts a nested object array into 1d', () => {

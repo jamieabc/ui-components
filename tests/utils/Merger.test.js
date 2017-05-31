@@ -1,4 +1,4 @@
-import Merger from '../Merger';
+import Merger from '../../src/utils/Merger';
 
 function sortFunc(a, b) {
   return a['id'] > b['id'] ? 1 : -1;

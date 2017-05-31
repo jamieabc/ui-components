@@ -66,7 +66,8 @@ SelectedPanel.propTypes = {
 SelectedPanel.defaultProps = {
   reserved: [],
   selected: [],
-  text: {}
+  text: {},
+  onUnselectAll: (callback) => callback
 };
 
 SelectedPanel.contextTypes = {

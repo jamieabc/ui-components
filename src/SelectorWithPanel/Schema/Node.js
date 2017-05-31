@@ -7,5 +7,5 @@ export default PropTypes.shape({
   name: PropTypes.string,
   value: PropTypes.string,
   children: PropTypes.array,
-  selected: PropTypes.bool
+  selected: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
 });

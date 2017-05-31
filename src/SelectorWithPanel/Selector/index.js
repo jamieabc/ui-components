@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import i18n from 'i18next';
-import SearchBox from 'ui-components/lib/SearchBox';
-import DataTable, { Pagination } from 'ui-components/lib/DataTable';
+import SearchBox from '../../SearchBox';
+import DataTable, { Pagination } from '../../DataTable';
 import Helpers from '../../utils/Helpers';
 import classNames from 'classnames';
 
@@ -10,6 +10,10 @@ import LinkOrText from './LinkOrText';
 import nodeSchema from '../Schema/Node';
 
 function columns(props, context) {
+  if (props.columnFactory) {
+    return props.columnFactory(props);
+  }
+
   const allChecked = props.dataSource.length > 0 &&
                      props.dataSource.every(d => props.isSelected(d[context.idKey]));
   const ancestorChecked = allChecked && props.dataSource.length > 0 &&
@@ -59,15 +63,22 @@ const CheckBox = ({ checked, onClick, disabled }) => {
 }
 
 const Selector = (props, context) => {
+  const uploader = (() => {
+    if (!props.progressBar) { return null; }
+
+    return (
+      <button className="btn btn-default btn-fileUpload btn-sm pull-right h5__pull-right">
+        {i18n.t('common:::Update List')}
+        <input type="file" onChange={props.onUpload} onClick={(e) => e.target.value = null} />
+        {props.progressBar}
+      </button>
+    )
+  })();
+
   return (
     <div className="panel panel-default pick-panel col-xs-6">
       <div className="panel-heading">
-        <button className="btn btn-default btn-fileUpload btn-sm pull-right h5__pull-right">
-          {i18n.t('common:::Update List')}
-          <input type="file" onChange={props.onUpload} onClick={(e) => e.target.value = null} />
-          {props.progressBar}
-        </button>
-
+        {uploader}
         <strong>{props.text.leftTitle}</strong>
       </div>
 
