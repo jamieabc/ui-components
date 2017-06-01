@@ -1,5 +1,5 @@
-import isArray from 'lodash/lang/isArray';
-import flatten from 'lodash/array/flatten';
+import isArray from 'lodash/isArray';
+import flatten from 'lodash/flatten';
 
 class Merger {
   constructor(options = {}) {

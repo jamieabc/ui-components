@@ -1,6 +1,6 @@
 // Horizontal Resizer
 import React, { Component, PropTypes } from 'react';
-import debounce from 'lodash/function/debounce';
+import debounce from 'lodash/debounce';
 
 class HResizer extends Component {
   constructor(props) {

@@ -1,8 +1,8 @@
-import map from 'lodash/collection/map';
-import pick from 'lodash/object/pick';
-import last from 'lodash/array/last';
-import isEqual from 'lodash/lang/isEqual';
-import find from 'lodash/collection/find';
+import map from 'lodash/map';
+import pick from 'lodash/pick';
+import last from 'lodash/last';
+import isEqual from 'lodash/isEqual';
+import find from 'lodash/find';
 import classNames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';

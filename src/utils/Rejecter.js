@@ -1,7 +1,7 @@
 // DFS
-import isArray from 'lodash/lang/isArray';
-import flatten from 'lodash/array/flatten';
-import isEqual from 'lodash/lang/isEqual';
+import isArray from 'lodash/isArray';
+import flatten from 'lodash/flatten';
+import isEqual from 'lodash/isEqual';
 
 class Rejecter {
   constructor(options = {}) {

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import flatten from 'lodash/array/flatten';
+import flatten from 'lodash/flatten';
 
 import nodeSchema from './Schema/Node';
 import Selector from './Selector';

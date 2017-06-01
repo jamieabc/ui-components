@@ -1,8 +1,8 @@
 /* eslint eqeqeq: "off" */
-import remove from 'lodash/array/remove';
-import find from 'lodash/collection/find';
-import isEmpty from 'lodash/lang/isEmpty';
-import cloneDeep from 'lodash/lang/cloneDeep';
+import remove from 'lodash/remove';
+import find from 'lodash/find';
+import isEmpty from 'lodash/isEmpty';
+import cloneDeep from 'lodash/cloneDeep';
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import InfoDialog from '../InfoDialog';

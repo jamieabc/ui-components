@@ -2,9 +2,9 @@
 import React, { PropTypes } from 'react';
 import AllList from './AllList';
 import SelectedList from './SelectedList';
-import find from 'lodash/collection/find';
-import cloneDeep from 'lodash/lang/cloneDeep';
-import uniqBy from 'lodash.uniqby';
+import find from 'lodash/find';
+import cloneDeep from 'lodash/cloneDeep';
+import uniqBy from 'lodash/uniqBy';
 
 const MultiSelector = (props) => {
   let allSelectedItems = cloneDeep(props.selectedItems);

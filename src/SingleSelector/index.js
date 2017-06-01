@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
-import find from 'lodash/collection/find';
+import find from 'lodash/find';
 import DataTable from '../DataTable';
 import SearchBox from '../SearchBox';
 import Helpers from '../utils/Helpers';

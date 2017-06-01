@@ -1,4 +1,4 @@
-import flatten from 'lodash/array/flatten';
+import flatten from 'lodash/flatten';
 
 const ArrayHelper = {
   // src: array of objects

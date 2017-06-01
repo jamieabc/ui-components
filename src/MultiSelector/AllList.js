@@ -1,14 +1,14 @@
 /* eslint eqeqeq: "off" */
-import find from 'lodash/collection/find';
-import flatten from 'lodash/array/flatten';
-import findIndex from 'lodash/array/findIndex';
-import intersection from 'lodash/array/intersection';
-import isEqual from 'lodash/lang/isEqual'
-import isEmpty from 'lodash/lang/isEmpty';
-import get from 'lodash/object/get';
-import result from 'lodash/object/result';
-import uniqBy from 'lodash.uniqby';
-import cloneDeep from 'lodash/lang/cloneDeep';
+import find from 'lodash/find';
+import flatten from 'lodash/flatten';
+import findIndex from 'lodash/findIndex';
+import intersection from 'lodash/intersection';
+import isEqual from 'lodash/isEqual'
+import isEmpty from 'lodash/isEmpty';
+import get from 'lodash/get';
+import result from 'lodash/result';
+import uniqBy from 'lodash/uniqBy';
+import cloneDeep from 'lodash/cloneDeep';
 import classNames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import DataTable, { Pagination } from '../DataTable';
