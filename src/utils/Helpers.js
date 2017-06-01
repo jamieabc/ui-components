@@ -1,14 +1,14 @@
-import isNumber from 'lodash/lang/isNumber';
-import isString from 'lodash/lang/isString';
-import round from 'lodash/math/round';
-import isEmpty from 'lodash/lang/isEmpty';
-import map from 'lodash/collection/map';
-import assign from 'lodash/object/assign';
-import compact from 'lodash/array/compact';
+import isNumber from 'lodash/isNumber';
+import isString from 'lodash/isString';
+import round from 'lodash/round';
+import isEmpty from 'lodash/isEmpty';
+import map from 'lodash/map';
+import assign from 'lodash/assign';
+import compact from 'lodash/compact';
 
 export default {
   getParamByName(name) {
-    const _name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    const _name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
     const regex = new RegExp(`[\\?&]${_name}=([^&#]*)`);
     const results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
@@ -83,7 +83,7 @@ export default {
   },
 
   filterInt(value) {
-    if (/^(\-|\+)?([0-9]+|Infinity)$/.test(value)) {
+    if (/^(-|\+)?([0-9]+|Infinity)$/.test(value)) {
       return Number(value);
     }
     return NaN;

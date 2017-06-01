@@ -1,5 +1,5 @@
 import datepicker from './lib/datepicker';
-import uniq from 'lodash/array/uniq';
+import uniq from 'lodash/uniq';
 import React, { Component, PropTypes} from 'react';
 import { findDOMNode } from 'react-dom';
 import Modal from 'react-bootstrap/lib/Modal';

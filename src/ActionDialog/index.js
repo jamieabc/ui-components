@@ -1,5 +1,5 @@
-import assign from 'lodash/object/assign';
-import sortByOrder from 'lodash/collection/sortByOrder';
+import assign from 'lodash/assign';
+import sortBy from 'lodash/sortBy';
 import React, { Component, PropTypes } from 'react';
 import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
@@ -23,7 +23,7 @@ class ActionDialog extends Component{
 
     this.getData = (offset, limit, orderStr) => {
       const order = Helpers.arrayifySort(orderStr)[0];
-      return sortByOrder(this.props.dataSource, order.name, order.dir).slice(offset, offset + limit);
+      return sortBy(this.props.dataSource, [order.name, order.dir]).slice(offset, offset + limit);
     };
   }
 

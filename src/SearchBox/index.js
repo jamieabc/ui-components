@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import isUndefined from 'lodash/lang/isUndefined';
-import debounce from 'lodash/function/debounce';
+import isUndefined from 'lodash/isUndefined';
+import debounce from 'lodash/debounce';
 
 class SearchBox extends Component {
   constructor(props) {

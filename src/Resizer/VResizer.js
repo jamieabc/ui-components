@@ -1,6 +1,6 @@
 // Vertical Resizer
 import React, { Component } from 'react';
-import debounce from 'lodash/function/debounce';
+import debounce from 'lodash/debounce';
 
 class VResizer extends Component {
   constructor(props) {

@@ -1,5 +1,5 @@
-import isNumber from 'lodash/lang/isNumber';
-import isNaN from 'lodash/lang/isNaN';
+import isNumber from 'lodash/isNumber';
+import isNaN from 'lodash/isNaN';
 import classNames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import Button from 'react-bootstrap/lib/Button';

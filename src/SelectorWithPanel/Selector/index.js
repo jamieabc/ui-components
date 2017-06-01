@@ -69,7 +69,7 @@ const Selector = (props, context) => {
     return (
       <button className="btn btn-default btn-fileUpload btn-sm pull-right h5__pull-right">
         {i18n.t('common:::Update List')}
-        <input type="file" onChange={props.onUpload} onClick={(e) => e.target.value = null} />
+        <input type="file" onChange={props.onUpload} onClick={e => { e.target.value = null } } />
         {props.progressBar}
       </button>
     )

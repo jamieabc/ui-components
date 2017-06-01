@@ -21,8 +21,7 @@
     ]
   },
   "dependencies": {
-    "lodash": "^3.10.1",
-    "lodash.uniqby": "^4.7.0",
+    "lodash": "^4.17.4",
     "nprogress": "^0.2.0",
     "prop-types": "^15.5.8",
     "react-addons-create-fragment": "^15.3.0"
