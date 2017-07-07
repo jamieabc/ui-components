@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react';
-import i18n from 'i18next';
 
 import NestedBlock from './NestedBlock';
 import nodeSchema from '../Schema/Node';
 
-function renderBlocks(collection, onRemove) {
+function renderBlocks(collection, onRemove, text) {
   if (!collection.length) { return null; }
 
   return (
     <NestedBlock
       dataSource={collection}
       onRemove={onRemove}
+      text={text}
     />
   );
 }
@@ -18,7 +18,7 @@ function renderBlocks(collection, onRemove) {
 const SelectedPanel = (props, context) => {
   const decoratedReserved = props.reserved.map(r => Object.assign({}, r, { reserved: true }));
   const collection = decoratedReserved.concat(props.selected);
-  const selectedBlocks = renderBlocks(collection, props.onUnselect);
+  const selectedBlocks = renderBlocks(collection, props.onUnselect, props.text);
   const emptyText = (() => {
     if (selectedBlocks) { return null; }
 
@@ -35,7 +35,7 @@ const SelectedPanel = (props, context) => {
                            onClick={props.onUnselectAll(() => props.onUnselect(props.selected.map(s => s[context.idKey])))}
                            className="btn btn-default btn-sm pull-right"
                          >
-                           {i18n.t('placement:::form::category::Remove All')}
+                           {props.text.rightRemoveAll}
                          </button>
                        ) : null;
 
@@ -54,7 +54,8 @@ const SelectedPanel = (props, context) => {
 SelectedPanel.propTypes = {
   text: PropTypes.shape({
     rightEmpty: PropTypes.string,
-    rightTitle: PropTypes.string
+    rightTitle: PropTypes.string,
+    rightRemoveAll: PropTypes.string
   }),
 
   selected: PropTypes.arrayOf(nodeSchema),

@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import i18n from 'i18next';
 
 import nodeSchema from '../Schema/Node';
 
@@ -8,6 +7,7 @@ function build(rows, props) {
   return rows.map((r, i) => (
     <Row
       r={r}
+      text={props.text}
       key={r.name + i}
       reserved={r.reserved}
       noTip={props.noTip}
@@ -18,7 +18,7 @@ function build(rows, props) {
   ));
 }
 
-const Row = ({ r, onClick, children, reserved, noTip }) => {
+const Row = ({ r, onClick, children, reserved, noTip, text }) => {
   const klassNames = classNames(['callout', 'text-hidden',
                                  {
                                    'callout-success': [true, 'included'].includes(r.selected),
@@ -34,7 +34,7 @@ const Row = ({ r, onClick, children, reserved, noTip }) => {
     if (reserved) {
       return (
         <span className={tipClassNames}>
-          {i18n.t('placement:::form::category::Placement Group-Level Setting')}
+          {text.rightNested}
         </span>
       )
     }
@@ -70,6 +70,7 @@ const NestedBlock = (props, context) => {
 NestedBlock.Row = Row;
 
 NestedBlock.propTypes = {
+  text: PropTypes.object,
   dataSource: PropTypes.arrayOf(nodeSchema),
   onRemove: PropTypes.func,
 };

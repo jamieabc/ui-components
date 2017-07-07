@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import i18n from 'i18next';
 import SearchBox from '../../SearchBox';
 import DataTable, { Pagination } from '../../DataTable';
 import Helpers from '../../utils/Helpers';
@@ -47,7 +46,7 @@ function columns(props, context) {
       }
     },
     {
-      name: 'name', title: i18n.t('common:::Name'),
+      name: 'name', title: props.text.columnName,
       render: (ignored, r) => <LinkOrText r={r} onClick={() => props.onQuery({ parent_id: r[context.idKey] })} />
     },
     { name: 'prop_id', title: 'ID', defaultWidth: 100, textAlign: 'center' }
@@ -68,7 +67,7 @@ const Selector = (props, context) => {
 
     return (
       <button className="btn btn-default btn-fileUpload btn-sm pull-right h5__pull-right">
-        {i18n.t('common:::Update List')}
+        {props.text.updateList}
         <input type="file" onChange={props.onUpload} onClick={e => { e.target.value = null } } />
         {props.progressBar}
       </button>

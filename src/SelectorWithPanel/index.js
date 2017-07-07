@@ -87,7 +87,22 @@ class SelectorWithPanel extends Component {
     this.props.onOverrideAncestors(newAncestors);
   }
 
-  handleQuery(params) {
+  handleQuery(rawParams) {
+    const params = (() => {
+      const addition = {};
+      // reset offset whenever an action happens unless it's paginating
+      if (!rawParams.offset) { addition.offset = 0; }
+      // relocate to root while searching
+      if (rawParams.hasOwnProperty('keyword')) { addition.parent_id = null; }
+
+      return Object.assign({}, rawParams, addition);
+    })();
+
+    // relocate to root while searching
+    if (params.hasOwnProperty('keyword')) {
+      this.handleExpand(null);
+    }
+
     // params.parent_id could be null, by which means navigate to the top lv
     if (params.hasOwnProperty('parent_id')) {
       this.handleExpand(params.parent_id);
