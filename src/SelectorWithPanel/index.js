@@ -67,6 +67,13 @@ class SelectorWithPanel extends Component {
         Object.assign({}, node, { children: flatten([memo]) })
       ), segment);
     };
+
+    this._handleSelect = (tree) => {
+      const nextSelected = Merger.run(this.props.selected,
+                                      tree,
+                                      { idKey: this.props.idKey, overrideKey: 'selected' });
+      this.props.onOverrideSelected(nextSelected);
+    }
   }
 
   getChildContext() {
@@ -125,11 +132,21 @@ class SelectorWithPanel extends Component {
     const decoratedRecords = records.map(r => (
       Object.assign({}, r, { selected: selectedKey || true })
     ));
+    const hasRemoteInflation = this.props.onInflate && this.props.query.keyword &&
+          records && records[0].parent_id;
 
-    const nextSelected = Merger.run(this.props.selected,
-                                    this.withAncestors(decoratedRecords),
-                                    { idKey: this.props.idKey, overrideKey: 'selected' });
-    this.props.onOverrideSelected(nextSelected);
+    if (!hasRemoteInflation) {
+      return this._handleSelect(this.withAncestors(decoratedRecords));
+    }
+
+    this.props.onInflate(id, (tree) => {
+      const traverse = (node) => {
+        if (node.prop_id === id) { node.selected = selectedKey || true }
+        else { node.children.forEach(n => traverse(n)) }
+      }
+      traverse(tree);
+      this._handleSelect(tree);
+    });
   }
 
   handleUnselect(id) {
@@ -213,6 +230,7 @@ SelectorWithPanel.propTypes = {
   onUnselectAllConfirm: PropTypes.func,
   onUpload: PropTypes.func,
   onQuery: PropTypes.func,
+  onInflate: PropTypes.func,
   onOverrideSelected: PropTypes.func,
   onOverrideAncestors: PropTypes.func
 };
