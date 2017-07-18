@@ -95,6 +95,7 @@ class RuleMaker extends Component {
         dataSource={dataSource}
         query={this.props.query}
 
+        onInflate={this.props.onInflate}
         onUnselectAllConfirm={this.props.onUnselectAllConfirm}
         onQuery={this.props.onQuery}
         onOverrideSelected={this.props.onOverrideSelected}
@@ -113,6 +114,7 @@ RuleMaker.propTypes = {
   onQuery: Selector.propTypes.onQuery,
   onOverrideSelected: Selector.propTypes.onOverrideSelected,
   onOverrideAncestors: Selector.propTypes.onOverrideAncestors,
+  onInflate: Selector.propTypes.onInflate,
 
   strategies: PropTypes.array, // the order of this field matters
   columns: PropTypes.array, // datagrid format

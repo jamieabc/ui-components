@@ -141,7 +141,9 @@ class SelectorWithPanel extends Component {
 
     this.props.onInflate(id, (tree) => {
       const traverse = (node) => {
-        if (node.prop_id === id) { node.selected = selectedKey || true }
+        /* eslint-disable eqeqeq */
+        if (node[this.props.idKey] == id) { node.selected = selectedKey || true }
+        /* eslint-enable eqeqeq */
         else { node.children.forEach(n => traverse(n)) }
       }
       traverse(tree);
