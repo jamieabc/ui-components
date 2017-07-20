@@ -67,7 +67,12 @@ class HResizer extends Component {
 
   render() {
     return (
-      <div className="ui-layout-resizer ui-layout-resizer-horizontal" ref="resizer" onMouseDown={this.handleMouseDown}>
+      <div
+        {...t(this.props.tagName)}
+        className="ui-layout-resizer ui-layout-resizer-horizontal"
+        ref="resizer"
+        onMouseDown={this.handleMouseDown}
+      >
         <div className="ui-layout-resizer_toggler" onClick={this.handleClick} onMouseDown={this.stopPropagation}></div>
       </div>
     );
@@ -75,6 +80,7 @@ class HResizer extends Component {
 }
 
 HResizer.propTypes = {
+  tagName: PropTypes.string,
   minBottomHeight: PropTypes.number,
   maxBottomHeight: PropTypes.number,
   eventScope: PropTypes.string.isRequired,
@@ -87,6 +93,7 @@ HResizer.propTypes = {
 };
 
 HResizer.defaultProps = {
+  tagName: '',
   minBottomHeight: 0,
   maxBottomHeight: 300
 };

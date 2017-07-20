@@ -102,7 +102,7 @@ class SingleSelector extends Component {
     const { warpperClassName } = this.props;
 
     return (
-      <span>
+      <span {...t(this.props.tagName)}>
         <div className={classNames('input-group', warpperClassName, {'hidden': this.state.expanded})}>
           <span className="input-group-btn">
             <Button disabled={this.props.disabled} onClick={this.handleCollapse}><i className="fa fa-plus"></i></Button>
@@ -137,6 +137,7 @@ class SingleSelector extends Component {
 }
 
 SingleSelector.propTypes = {
+  tagName: PropTypes.string,
   warpperClassName: PropTypes.string,
   expanded: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -166,6 +167,7 @@ SingleSelector.propTypes = {
 };
 
 SingleSelector.defaultProps = {
+  tagName: '',
   warpperClassName: 'form-width-md',
   expanded: false,
   disabled: false,

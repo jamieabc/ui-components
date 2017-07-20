@@ -21,7 +21,7 @@ const HomeBreadcrumb = (props) => {
 };
 
 const Breadcrumb = (props) => (
-  <ol className="breadcrumb">
+  <ol className="breadcrumb" {...t(props.tagName)}>
     {
       props.showHome &&
       <HomeBreadcrumb
@@ -37,12 +37,14 @@ const Breadcrumb = (props) => (
 Breadcrumb.BreadcrumbItem = BreadcrumbItem;
 
 Breadcrumb.propTypes = {
+  tagName: PropTypes.string,
   text: PropTypes.string,
   title: PropTypes.string,
   showHome: PropTypes.bool
 };
 
 Breadcrumb.defaultProps = {
+  tagName: '',
   showHome: true
 }
 

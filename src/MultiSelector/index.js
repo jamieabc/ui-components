@@ -19,7 +19,7 @@ const MultiSelector = (props) => {
     });
   }
   return (
-    <div className="row-gapless">
+    <div className="row-gapless" {...t(props.tagName)} >
       <AllList
         showBreadCrumb={props.showBreadCrumb}
         title={props.allListTitle}
@@ -55,6 +55,7 @@ const MultiSelector = (props) => {
 }
 
 MultiSelector.propTypes = {
+  tagName: PropTypes.string,
   // All list props
   showBreadCrumb: PropTypes.bool,
   allListTitle: PropTypes.string.isRequired,
@@ -90,6 +91,7 @@ MultiSelector.defaultProps = {
   showBreadCrumb: true,
   selectable: true,
   inheritable: false,
+  tagName: '',
   dataTableProps: {
     emptyText: 'No records'
   }

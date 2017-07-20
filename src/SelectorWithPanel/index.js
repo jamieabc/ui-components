@@ -189,7 +189,7 @@ class SelectorWithPanel extends Component {
 
   render() {
     return (
-      <div className="row-gapless">
+      <div {...t(this.props.tagName)} className="row-gapless">
         <Selector
           text={this.props.text}
 
@@ -257,6 +257,7 @@ SelectorWithPanel.propTypes = {
 };
 
 SelectorWithPanel.defaultProps = {
+  tagName: '',
   idKey: 'prop_id',
   dataSource: [],
   selected: [],
@@ -266,6 +267,7 @@ SelectorWithPanel.defaultProps = {
 };
 
 SelectorWithPanel.childContextTypes = {
+  tagName: PropTypes.string,
   idKey: PropTypes.string
 };
 
