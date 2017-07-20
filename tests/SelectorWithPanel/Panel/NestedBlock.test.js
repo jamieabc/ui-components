@@ -41,7 +41,7 @@ describe('props.onRemove', () => {
 describe('NestedBlock.Row', () => {
   describe('props.reserved', () => {
     it('when given it renders no button', () => {
-      const wrapper = shallow(<NestedBlock.Row r={{ reserved: true }} reserved />,
+      const wrapper = shallow(<NestedBlock.Row text={{ rightNested: 'Placement' }} r={{ reserved: true }} reserved />,
                               { context: { idKey: 'prop_id' } });
 
       expect(wrapper.find('span').text().includes('Placement')).toBe(true);

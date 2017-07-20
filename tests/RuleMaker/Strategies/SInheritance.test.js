@@ -8,7 +8,7 @@ describe('SInheritance', () => {
       const selected = [{ id: 1, selected: 'included' }];
 
       const actual = SInheritance({ record, selected, ancestors });
-      expect(actual).toEqual({ disabled: ['included'] });
+      expect(actual).toEqual({ disabled: ['included'], terminated: true });
     })
   })
 

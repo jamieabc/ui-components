@@ -1,5 +1,5 @@
 import React from 'react';
-import isEqual from 'lodash/lang/isEqual';
+import isEqual from 'lodash/isEqual';
 
 import SelectorWithPanel from '../../src/SelectorWithPanel';
 import Selector from '../../src/SelectorWithPanel/Selector';

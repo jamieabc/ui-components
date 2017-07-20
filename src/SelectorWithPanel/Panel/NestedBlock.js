@@ -76,6 +76,7 @@ NestedBlock.propTypes = {
 };
 
 NestedBlock.defaultProps = {
+  text: {},
   dataSource: []
 };
 
