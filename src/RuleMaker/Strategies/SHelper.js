@@ -12,6 +12,10 @@ const Helpers = {
     return matchingRecord ? matchingRecord.selected : null;
   },
 
+  excludeStatus(status) {
+    return ['included', 'excluded'].filter(s => s !== status);
+  },
+
   terminate(record, attrs) {
     return Helpers.change(record, Object.assign({}, attrs, { terminated: true }));
   },

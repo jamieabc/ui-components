@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import flatten from 'lodash/flatten';
+import omit from 'lodash/omit';
 
 import nodeSchema from './Schema/Node';
 import Selector from './Selector';
@@ -64,13 +65,30 @@ class SelectorWithPanel extends Component {
       const reversedSeq = [].concat(this.props.ancestors).reverse();
 
       return reversedSeq.reduce((memo, node) => (
-        Object.assign({}, node, { children: flatten([memo]) })
+        Object.assign({}, omit(node, ['selected']), { children: flatten([memo]) })
       ), segment);
     };
 
+    /* eslint-disable eqeqeq */
+    this.tagSelected = (tree) => {
+      const flattenSelected = ObjectArray.flattenWith(this.props.selected, 'children');
+
+      const traverse = (node) => {
+        const current = flattenSelected.find(s => s[this.props.idKey] == node[this.props.idKey]);
+        const nextSelected = current ? current.selected : null;
+
+        if (nextSelected) { node.selected = nextSelected; }
+        if (node.children) { node.children.forEach(n => traverse(n)) };
+      };
+
+      traverse(tree);
+      return tree;
+    };
+    /* eslint-enable eqeqeq */
+
     this._handleSelect = (tree) => {
       const nextSelected = Merger.run(this.props.selected,
-                                      tree,
+                                      this.tagSelected(tree),
                                       { idKey: this.props.idKey, overrideKey: 'selected' });
       this.props.onOverrideSelected(nextSelected);
     }
@@ -134,20 +152,21 @@ class SelectorWithPanel extends Component {
     ));
     const hasRemoteInflation = this.props.onInflate && this.props.query.keyword &&
           records && records[0].parent_id;
+    /* eslint-disable eqeqeq */
+    const traverse = (node) => {
+      if (node[this.props.idKey] == id) { node.selected = selectedKey || true }
+      if (node.children) { node.children.forEach(n => traverse(n)) }
+
+      return node;
+    }
+    /* eslint-enable eqeqeq */
 
     if (!hasRemoteInflation) {
-      return this._handleSelect(this.withAncestors(decoratedRecords));
+      return this._handleSelect(traverse(this.withAncestors(decoratedRecords)));
     }
 
     this.props.onInflate(id, (tree) => {
-      const traverse = (node) => {
-        /* eslint-disable eqeqeq */
-        if (node[this.props.idKey] == id) { node.selected = selectedKey || true }
-        /* eslint-enable eqeqeq */
-        else { node.children.forEach(n => traverse(n)) }
-      }
-      traverse(tree);
-      this._handleSelect(tree);
+      this._handleSelect(traverse(tree));
     });
   }
 

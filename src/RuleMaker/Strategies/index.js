@@ -3,6 +3,7 @@ import Runner from './Runner';
 import './SBasic';
 import './SInheritance';
 import './SSibling';
+import './SWhiteOrBlackOnly';
 
 export default {
   prepare(...args) {

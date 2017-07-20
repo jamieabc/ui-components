@@ -8,9 +8,9 @@ function SInheritance({ record, selected, ancestors }) {
 
   // there is no selected ancestor
   if (ancestorStatus.length === 0) { return Helpers.noChange; }
-  const disabled = ['included', 'excluded'].filter((k) => ancestorStatus.includes(k));
+  const disabled = ancestorStatus.includes('excluded') ? ['included', 'excluded'] : ['included'];
 
-  return Helpers.change(record, { disabled });
+  return Helpers.terminate(record, { disabled });
 }
 
 Runner.register('inheritance', SInheritance);
