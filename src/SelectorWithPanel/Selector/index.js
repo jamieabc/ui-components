@@ -113,6 +113,7 @@ const Selector = (props, context) => {
           limit={props.query.limit}
           total={props.query.total}
           onPageChange={props.onQuery}
+          paginationPrepositionText={props.text.paginationSeparator}
           pageSizes={false}
         />
       </div>
@@ -128,6 +129,7 @@ Selector.propTypes = {
     leftTitle: PropTypes.string,
     leftEmpty: PropTypes.string,
     placeholder: PropTypes.string,
+    paginationSeparator: PropTypes.string,
   }),
 
   progressBar: PropTypes.node,

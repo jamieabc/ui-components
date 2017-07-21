@@ -230,6 +230,7 @@ SelectorWithPanel.propTypes = {
     rightTitle: PropTypes.string,
     rightEmpty: PropTypes.string,
     placeholder: PropTypes.string,
+    paginationSeparator: PropTypes.string,
   }),
 
   columnFactory: PropTypes.func,
