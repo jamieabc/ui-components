@@ -130,7 +130,7 @@ class DateRange extends Component{
       />);
     }
     return (
-      <span {...t(this.props.tagName)}>
+      <span>
         {this.props.theme === 'select' ? this.renderAsSelect() : this.renderAsDropdown()}
         {customDialog}
       </span>
@@ -139,7 +139,6 @@ class DateRange extends Component{
 }
 
 DateRange.propTypes = {
-  tagName: PropTypes.string,
   theme: PropTypes.string,
   utcOffset: PropTypes.number.isRequired,
   tzName: PropTypes.string.isRequired,
@@ -158,7 +157,6 @@ DateRange.propTypes = {
 };
 
 DateRange.defaultProps = {
-  tagName: '',
   theme: 'dropdown',
   rangeTypes: rangeTypes,
   rangeType: 'today',

@@ -39,7 +39,7 @@ class SearchBox extends Component {
   render() {
     const closeButtonStyle = {display: this.state.keyword ? 'block' : 'none'};
     return (
-      <div {...t(this.props.tagName)} className="has-feedback form-group">
+      <div className="has-feedback form-group">
         <input
           ref="keywordField"
           type="search"
@@ -57,14 +57,9 @@ class SearchBox extends Component {
 }
 
 SearchBox.propTypes = {
-  tagName: PropTypes.string,
   handleQueryChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
   keyword: PropTypes.string
-};
-
-SearchBox.defaultProps = {
-  tagName: ''
 };
 
 export default SearchBox;

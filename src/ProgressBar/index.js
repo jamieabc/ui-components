@@ -61,7 +61,6 @@ class ProgressBar extends Component {
         ref="wrapper"
         style={{ display: this.state.start ? 'block' : 'none' }}
         id={id}
-        {...t(this.props.tagName)}
       >
       </div>
     );
@@ -69,12 +68,7 @@ class ProgressBar extends Component {
 }
 
 ProgressBar.propTypes = {
-  tagName: PropTypes.string,
   id: PropTypes.number
-};
-
-ProgressBar.defaultProps = {
-  tagName: ''
 };
 
 export default ProgressBar;

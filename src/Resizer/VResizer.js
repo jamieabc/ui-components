@@ -77,13 +77,7 @@ class VResizer extends Component {
 
   render() {
     return (
-      <div
-        {...t(this.props.tagName)}
-        className="ui-layout-resizer ui-layout-resizer-vertical"
-        ref="resizer"
-        onMouseDown={this.handleMouseDown}
-        style={{'float': 'left'}}
-      >
+      <div className="ui-layout-resizer ui-layout-resizer-vertical" ref="resizer" onMouseDown={this.handleMouseDown} style={{'float': 'left'}}>
         <div className="ui-layout-resizer_toggler" onClick={this.handleClick} onMouseDown={this.stopPropagation}></div>
       </div>
     );
@@ -91,7 +85,6 @@ class VResizer extends Component {
 }
 
 VResizer.propTypes = {
-  tagName: React.PropTypes.string,
   minLeftWidth: React.PropTypes.number,
   maxLeftWidth: React.PropTypes.number,
   eventScope: React.PropTypes.string.isRequired,
@@ -104,7 +97,6 @@ VResizer.propTypes = {
 };
 
 VResizer.defaultProps = {
-  tagName: '',
   minLeftWidth: 0,
   maxLeftWidth: 550
 };
