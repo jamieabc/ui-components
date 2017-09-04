@@ -96,6 +96,8 @@ class SelectedList extends Component {
   }
 
   render() {
+    const noItemWarning = this.props.allSelectedItems.length === 0 ? this.props.noRecordText : null;
+
     return (
       <div className="panel panel-default pick-panel col-xs-6">
         <div className="panel-heading">
@@ -109,6 +111,7 @@ class SelectedList extends Component {
           <strong>{this.props.title}</strong>
         </div>
         <div className={`picked-items picked-items__height-${this.props.showBreadCrumb ? 'breadcrumb' : 'default'}`}>
+          {noItemWarning}
           {this.renderItems(this.props.inheritedItems, this.props.inheritedItems)}
           {this.renderItems(this.props.allSelectedItems, [])}
         </div>
@@ -141,6 +144,7 @@ SelectedList.propTypes = {
   removeAllWarningMessage: PropTypes.node,
   removeAllWaringSubmitText: PropTypes.string,
   removeAllWaringCancelText: PropTypes.string,
+  noRecordText: PropTypes.string,
   inheritedItems: PropTypes.array,
   inheritable: PropTypes.bool,
   inheritText: PropTypes.string,

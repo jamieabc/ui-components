@@ -42,6 +42,7 @@ const MultiSelector = (props) => {
         removeAllWarningMessage={props.removeAllWarningMessage}
         removeAllWaringSubmitText={props.removeAllWaringSubmitText}
         removeAllWaringCancelText={props.removeAllWaringCancelText}
+        noRecordText={props.noRecordText}
         inheritable={props.inheritable}
         selectedItems={props.selectedItems}
         inheritedItems={props.inheritedItems}
@@ -83,7 +84,8 @@ MultiSelector.propTypes = {
   removeAllWarningTitle: PropTypes.string,
   removeAllWarningMessage: PropTypes.string,
   removeAllWaringSubmitText: PropTypes.string,
-  removeAllWaringCancelText: PropTypes.string
+  removeAllWaringCancelText: PropTypes.string,
+  noRecordText: PropTypes.string
 };
 
 MultiSelector.defaultProps = {
