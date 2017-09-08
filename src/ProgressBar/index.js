@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import NProgress from 'nprogress';
+import { t } from '../utils/Helpers';
 
 class ProgressBar extends Component {
   constructor(props) {

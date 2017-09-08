@@ -95,5 +95,13 @@ export default {
       newObj[key] = this.filterInt(obj[key], 10) || obj[key];
       return newObj;
     });
+  },
+
+  t(name) {
+    const ATTR_NAME = 'data-tid';
+
+    if (!name) { return {} }
+
+    return { [ATTR_NAME]: name.toLowerCase().replace(/\s/g, '-') }
   }
 };

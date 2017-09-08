@@ -8,6 +8,7 @@ import Panel from './Panel';
 import Merger from '../utils/Merger';
 import Rejecter from '../utils/Rejecter';
 import ObjectArray from '../utils/ObjectArray';
+import { t } from '../utils/Helpers';
 
 class SelectorWithPanel extends Component {
   constructor(props) {
