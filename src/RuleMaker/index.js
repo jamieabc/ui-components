@@ -86,6 +86,8 @@ class RuleMaker extends Component {
     return (
       <Selector
         idKey="id"
+        rowHeight={this.props.rowHeight}
+        selectedPanelStyle={this.props.selectedPanelStyle}
 
         text={this.props.text}
         ancestors={this.props.ancestors}
@@ -100,8 +102,8 @@ class RuleMaker extends Component {
         onQuery={this.props.onQuery}
         onOverrideSelected={this.props.onOverrideSelected}
         onOverrideAncestors={this.props.onOverrideAncestors}
-      />
-    )
+      />)
+
   }
 }
 
@@ -115,6 +117,7 @@ RuleMaker.propTypes = {
   onOverrideSelected: Selector.propTypes.onOverrideSelected,
   onOverrideAncestors: Selector.propTypes.onOverrideAncestors,
   onInflate: Selector.propTypes.onInflate,
+  selectedPanelStyle: Selector.propTypes.selectedPanelStyle,
 
   strategies: PropTypes.array, // the order of this field matters
   columns: PropTypes.array, // datagrid format
@@ -132,7 +135,8 @@ RuleMaker.defaultProps = {
   columns: [],
   dataSource: [],
   selected: [],
-  strategies: ['basic', 'inheritance']
+  strategies: ['basic', 'inheritance'],
+  selectedPanelStyle: 'nested'
 }
 
 export default RuleMaker;

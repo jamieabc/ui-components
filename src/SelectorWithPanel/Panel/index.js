@@ -1,26 +1,13 @@
 import React, { PropTypes } from 'react';
 
-import NestedBlock from './NestedBlock';
+import BlockList from './BlockList';
 import nodeSchema from '../Schema/Node';
-
-function renderBlocks(collection, onRemove, text) {
-  if (!collection.length) { return null; }
-
-  return (
-    <NestedBlock
-      dataSource={collection}
-      onRemove={onRemove}
-      text={text}
-    />
-  );
-}
 
 const SelectedPanel = (props, context) => {
   const decoratedReserved = props.reserved.map(r => Object.assign({}, r, { reserved: true }));
   const collection = decoratedReserved.concat(props.selected);
-  const selectedBlocks = renderBlocks(collection, props.onUnselect, props.text);
   const emptyText = (() => {
-    if (selectedBlocks) { return null; }
+    if (collection.length) { return null; }
 
     return (
       <div className="panel-body picked-items picked-items__height-breadcrumb">
@@ -45,8 +32,15 @@ const SelectedPanel = (props, context) => {
         {removeAllBtn}
         <strong>{props.text.rightTitle}</strong>
       </div>
+
       {emptyText}
-      {selectedBlocks}
+
+      <BlockList
+        collection={collection}
+        style={props.style}
+        onRemove={props.onUnselect}
+        text={props.text}
+      />
     </div>
   );
 }
@@ -57,6 +51,7 @@ SelectedPanel.propTypes = {
     rightTitle: PropTypes.string,
     rightRemoveAll: PropTypes.string
   }),
+  style: PropTypes.oneOf(['nested', 'accordion']),
 
   selected: PropTypes.arrayOf(nodeSchema),
   reserved: PropTypes.arrayOf(nodeSchema),

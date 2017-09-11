@@ -13,7 +13,8 @@ console.error = (msg) => {
     "directly into document.body is discouraged",
     "Unknown prop",
     "Accessing PropTypes",
-    "Shallow"
+    "Shallow",
+    "createClass"
   ];
   if (ignoredPatterns.some(p => msg.includes(p))) { return; }
 

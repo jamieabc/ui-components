@@ -94,6 +94,7 @@ const Selector = (props, context) => {
       <div className="item-to-pick">
         <DataTable
           dataSource={props.dataSource}
+          rowHeight={props.rowHeight}
           columns={columns(props, context)}
           sortInfo={Helpers.arrayifySort(props.query.order)}
           pager={false}
