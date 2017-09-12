@@ -4,7 +4,9 @@ import classNames from 'classnames';
 import BsAccordion from 'react-bootstrap/lib/Accordion';
 import Collapse from 'react-bootstrap/lib/Collapse';
 import CloseButton from './CloseButton';
+import AutoResizeIframe from '../../../AutoResizeIframe';
 
+// props.expanded & props.onSelect is brought by BsAccordion
 const Row = (props) => {
   const r = props.r;
   const klassNames = classNames([
@@ -23,7 +25,9 @@ const Row = (props) => {
       </div>
 
       <Collapse in={props.expanded}>
-        <span>{r.detail}</span>
+        <div>
+          <AutoResizeIframe show={props.expanded} src={r.detailSrc} />
+        </div>
       </Collapse>
     </div>
   )
@@ -33,7 +37,7 @@ const Accordion = (props, context) => {
   return (
     <div className="picked-items picked-items__height-breadcrumb">
       <BsAccordion>
-      {props.dataSource.map((r, i) => <Row eventKey={i} r={r} key={i} onRemove={() => { props.onRemove(r[context.idKey]) }} />)}
+        {props.dataSource.map((r, i) => <Row eventKey={i} r={r} key={i} onRemove={() => { props.onRemove(r[context.idKey]) }} />)}
       </BsAccordion>
     </div>
   );
