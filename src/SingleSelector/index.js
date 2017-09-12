@@ -7,6 +7,7 @@ import Helpers from '../utils/Helpers';
 import Dropdown from 'react-bootstrap/lib/Dropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import Button from 'react-bootstrap/lib/Button';
+import { t } from '../utils/Helpers';
 
 class SingleSelector extends Component {
   constructor(props) {

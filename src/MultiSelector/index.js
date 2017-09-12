@@ -5,6 +5,7 @@ import SelectedList from './SelectedList';
 import find from 'lodash/find';
 import cloneDeep from 'lodash/cloneDeep';
 import uniqBy from 'lodash/uniqBy';
+import { t } from '../utils/Helpers';
 
 const MultiSelector = (props) => {
   let allSelectedItems = cloneDeep(props.selectedItems);

@@ -21,7 +21,7 @@
     ]
   },
   "dependencies": {
-    "babel-register": "^6.24.1",
+    "iframe-resizer": "^3.5.14",
     "lodash": "^4.17.4",
     "nprogress": "^0.2.0",
     "prop-types": "^15.5.8",

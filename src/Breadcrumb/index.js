@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Link from 'react-router/lib/Link';
+import { t } from '../utils/Helpers';
 
 const BreadcrumbItem = (props) => (
   <li {...props}>{props.children}</li>

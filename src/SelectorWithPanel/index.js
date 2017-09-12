@@ -8,6 +8,7 @@ import Panel from './Panel';
 import Merger from '../utils/Merger';
 import Rejecter from '../utils/Rejecter';
 import ObjectArray from '../utils/ObjectArray';
+import { t } from '../utils/Helpers';
 
 class SelectorWithPanel extends Component {
   constructor(props) {
@@ -195,6 +196,7 @@ class SelectorWithPanel extends Component {
 
           progressBar={this.props.progressBar}
 
+          rowHeight={this.props.rowHeight}
           columnFactory={this.props.columnFactory}
           dataSource={this.props.dataSource}
           ancestors={this.props.ancestors}
@@ -209,6 +211,7 @@ class SelectorWithPanel extends Component {
 
         <Panel
           text={this.props.text}
+          style={this.props.selectedPanelStyle}
 
           selected={this.props.selected}
           reserved={this.props.reserved}
@@ -223,6 +226,7 @@ class SelectorWithPanel extends Component {
 
 SelectorWithPanel.propTypes = {
   idKey: PropTypes.string,
+  selectedPanelStyle: Panel.propTypes.style,
 
   text: PropTypes.shape({
     leftTitle: PropTypes.string,
@@ -264,7 +268,8 @@ SelectorWithPanel.defaultProps = {
   selected: [],
   reserved: [],
   ancestors: [],
-  progressBar: null
+  progressBar: null,
+  selectedPanelStyle: 'nested'
 };
 
 SelectorWithPanel.childContextTypes = {

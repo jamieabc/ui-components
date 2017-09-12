@@ -3,6 +3,7 @@ import Dropdown from 'react-bootstrap/lib/Dropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import Helpers from './Helpers';
 import CustomDialog from './Custom';
+import { t } from '../utils/Helpers';
 
 const rangeTypes = [
   'custom',
