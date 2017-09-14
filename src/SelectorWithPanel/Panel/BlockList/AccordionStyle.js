@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import BsAccordion from 'react-bootstrap/lib/Accordion';
@@ -7,30 +7,37 @@ import CloseButton from './CloseButton';
 import AutoResizeIframe from '../../../AutoResizeIframe';
 
 // props.expanded & props.onSelect is brought by BsAccordion
-const Row = (props) => {
-  const r = props.r;
-  const klassNames = classNames([
-    'panel', 'panel-callout',
-    { 'panel-success': r.selected === 'included',
-      'panel-danger': r.selected === 'excluded' }
-  ])
+class Row extends Component {
+  resizeIframe = () => {
+    this.refs.iframe.resize()
+  }
 
-  return (
-    <div className={klassNames}>
-      <div className="panel-heading folding">
-        <CloseButton onClick={props.onRemove} />
-        <a aria-expanded={props.expanded ? 'true' : 'false'} onClick={(e) => props.onSelect(props.eventKey, e)}>
-          {r.name}
-        </a>
-      </div>
+  render() {
+    const props = this.props;
+    const r = props.r;
+    const klassNames = classNames([
+      'panel', 'panel-callout',
+      { 'panel-success': r.selected === 'included',
+        'panel-danger': r.selected === 'excluded' }
+    ])
 
-      <Collapse in={props.expanded}>
-        <div>
-          <AutoResizeIframe show={props.expanded} src={r.detailSrc} />
+    return (
+      <div className={klassNames}>
+        <div className="panel-heading folding">
+          <CloseButton onClick={props.onRemove} />
+          <a aria-expanded={props.expanded ? 'true' : 'false'} onClick={(e) => props.onSelect(props.eventKey, e)}>
+            {r.name}
+          </a>
         </div>
-      </Collapse>
-    </div>
-  )
+
+        <Collapse in={props.expanded} onEntered={this.resizeIframe}>
+          <div>
+            <AutoResizeIframe ref="iframe" src={r.detailSrc} />
+          </div>
+        </Collapse>
+      </div>
+    )
+  }
 }
 
 const Accordion = (props, context) => {
