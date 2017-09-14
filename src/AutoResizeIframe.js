@@ -4,6 +4,7 @@ import { iframeResizer } from 'iframe-resizer';
 class AutoResizeIframe extends Component {
   constructor(props) {
     super(props);
+
     this.id = `auto-resize-iframe-${Math.floor(Math.random() * 10000)}`;
   }
 
@@ -21,10 +22,8 @@ class AutoResizeIframe extends Component {
     this.instance = instances[0];
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.show && nextProps.show) {
-      this.instance.iFrameResizer.resize();
-    }
+  resize() {
+    this.instance.iFrameResizer.resize();
   }
 
   componentWillUnmount() {
