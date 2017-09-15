@@ -3,6 +3,7 @@ import pick from 'lodash/pick';
 import last from 'lodash/last';
 import isEqual from 'lodash/isEqual';
 import find from 'lodash/find';
+import isInteger from 'lodash/isInteger';
 import classNames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
@@ -10,6 +11,8 @@ import createFragment from 'react-addons-create-fragment';
 import DataGrid from 'react-datagrid';
 import Helpers from '../utils/Helpers';
 import Pagination from './Pagination';
+
+const DEFAULT_ROW_HEIGHT = 30;
 
 class DataTable extends Component {
   constructor(props) {
@@ -162,6 +165,10 @@ class DataTable extends Component {
 
   render() {
     const columns = this.props.selectable ? [this.getSelectorColumn()].concat(this.columns) : this.columns;
+    const rowHeight = (() => {
+      const _rowHeight = Number.parseInt(this.props.rowHeight, 10);
+      return isInteger(_rowHeight) ? _rowHeight : DEFAULT_ROW_HEIGHT;
+    })();
     const pager = (
       <Pagination
         offset={this.props.offset}
@@ -190,7 +197,7 @@ class DataTable extends Component {
         onColumnResize={this.onColumnResize}
         resizableColumns={this.props.resizableColumns}
         scrollbarSize={this.props.scrollbarSize}
-        rowHeight={this.props.rowHeight}
+        rowHeight={rowHeight}
       />
     );
 
@@ -264,7 +271,7 @@ DataTable.defaultProps = {
   idProperty: 'id',
   emptyText: 'No records',
   scrollbarSize: 20,
-  rowHeight: 30,
+  rowHeight: DEFAULT_ROW_HEIGHT,
   columnMinWidth: 50
 };
 
