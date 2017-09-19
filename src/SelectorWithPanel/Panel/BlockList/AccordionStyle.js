@@ -67,8 +67,9 @@ class Accordion extends Component {
   }
 
   render() {
+    const style = this.props.dataSource.length ? {} : { display: 'none' };
     return (
-      <div className="picked-items picked-items__height-breadcrumb">
+        <div className="picked-items picked-items__height-breadcrumb" style={style}>
         <BsAccordion onSelect={this.handleSelect} activeKey={this.state.activeKey}>
           {this.props.dataSource.map((r) => {
             const key = r[this.context.idKey];
