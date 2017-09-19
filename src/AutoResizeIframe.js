@@ -12,7 +12,10 @@ class AutoResizeIframe extends Component {
     const instances = iframeResizer({
       checkOrigin: false,
       initCallback(iframe) {
-        iframe.style.height = 0; // Chrome & FF cannot calcuate hidden iframe height correctly
+        // 1000 is a magic number to prevent blinking ...
+        if (Number.parseInt(iframe.style.height, 10) > 1000) {
+          iframe.style.height = 0; // Chrome & FF cannot calcuate hidden iframe height correctly
+        }
       },
       resizedCallback({ iframe, height, width, type }) {
         iframe.style.height = `${Number.parseInt(height, 10) + 20}px`;
