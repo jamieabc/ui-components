@@ -24,6 +24,8 @@ function build(rows, props) {
 }
 
 const NestedBlock = (props, context) => {
+  if (props.dataSource.length === 0) { return null; }
+
   return (
     <div className="picked-items picked-items__height-breadcrumb">
       {build(props.dataSource, Object.assign({ idKey: context.idKey }, props))}
