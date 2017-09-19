@@ -55,8 +55,8 @@ class Accordion extends Component {
 
   componentWillReceiveProps(nextProps) {
     const newActiveKey = (() => {
-      if (nextProps.dataSource.length === 1) {
-        return nextProps.dataSource[0][this.context.idKey];
+      if (nextProps.dataSource.length <= this.props.dataSource.length) {
+        return null;
       }
       const newItems = differenceBy(nextProps.dataSource, this.props.dataSource, this.context.idKey);
       return newItems[0] ? newItems[0][this.context.idKey] : null;

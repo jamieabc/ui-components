@@ -3,7 +3,7 @@ import Accordion from './AccordionStyle';
 import NestedBlock from './NestedStyle';
 
 const BlockList = ({ style, collection, onRemove, text }) => {
-  if (!collection.length) { return null; }
+  // if (!collection.length) { return null; }
 
   const Component = style === 'accordion' ? Accordion : NestedBlock;
 
