@@ -10,7 +10,7 @@ import AutoResizeIframe from '../../../AutoResizeIframe';
 // props.expanded & props.onSelect is brought by BsAccordion
 class Row extends Component {
   resizeIframe = () => {
-    this.refs.iframe.resize()
+    this.refs.iframe.resize();
   }
 
   render() {
@@ -54,8 +54,13 @@ class Accordion extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const newItems = differenceBy(nextProps.dataSource, this.props.dataSource, this.context.idKey);
-    const newActiveKey = newItems[0] ? newItems[0][this.context.idKey] : null;
+    const newActiveKey = (() => {
+      if (nextProps.dataSource.length === 1) {
+        return nextProps.dataSource[0][this.context.idKey];
+      }
+      const newItems = differenceBy(nextProps.dataSource, this.props.dataSource, this.context.idKey);
+      return newItems[0] ? newItems[0][this.context.idKey] : null;
+    })();
     if (newActiveKey && this.state.activeKey !== newActiveKey) {
       this.setState({activeKey: newActiveKey});
     }
