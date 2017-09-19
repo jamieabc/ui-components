@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import differenceBy from 'lodash/differenceBy';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import BsAccordion from 'react-bootstrap/lib/Accordion';
@@ -40,14 +41,38 @@ class Row extends Component {
   }
 }
 
-const Accordion = (props, context) => {
-  return (
-    <div className="picked-items picked-items__height-breadcrumb">
-      <BsAccordion>
-        {props.dataSource.map((r, i) => <Row eventKey={i} r={r} key={i} onRemove={() => { props.onRemove(r[context.idKey]) }} />)}
-      </BsAccordion>
-    </div>
-  );
+class Accordion extends Component {
+  constructor() {
+    super();
+    this.state = {
+      activeKey: null
+    };
+  }
+
+  handleSelect = key => {
+    this.setState({activeKey: key});
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const newItems = differenceBy(nextProps.dataSource, this.props.dataSource, this.context.idKey);
+    const newActiveKey = newItems[0] ? newItems[0][this.context.idKey] : null;
+    if (newActiveKey && this.state.activeKey !== newActiveKey) {
+      this.setState({activeKey: newActiveKey});
+    }
+  }
+
+  render() {
+    return (
+      <div className="picked-items picked-items__height-breadcrumb">
+        <BsAccordion onSelect={this.handleSelect} activeKey={this.state.activeKey}>
+          {this.props.dataSource.map((r) => {
+            const key = r[this.context.idKey];
+            return <Row eventKey={key} r={r} key={key} onRemove={() => { this.props.onRemove(key) }} />;
+          })}
+        </BsAccordion>
+      </div>
+    );
+  }
 }
 
 Accordion.contextTypes = {
