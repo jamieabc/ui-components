@@ -7,14 +7,6 @@ const Accordion = require('../BlockList/AccordionStyle');
 const Nested = require('../BlockList/NestedStyle');
 
 describe('BlockList', () => {
-  describe('props.collection', () => {
-    it('renders nothing', () => {
-      const wrapper = shallow(<BlockList />);
-
-      expect(wrapper.type()).toBe(null);
-    })
-  })
-
   describe('props.style', () => {
     it('calls nested by default', () => {
       const wrapper = shallow(<BlockList collection={['a']} />);

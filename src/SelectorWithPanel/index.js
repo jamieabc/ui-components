@@ -96,7 +96,7 @@ class SelectorWithPanel extends Component {
   }
 
   getChildContext() {
-    return { idKey: this.props.idKey };
+    return { idKey: this.props.idKey, noBreadcrumb: this.props.noBreadcrumb };
   }
 
   handleExpand(parent_id) {
@@ -237,6 +237,7 @@ SelectorWithPanel.propTypes = {
     paginationSeparator: PropTypes.string,
   }),
 
+  noBreadcrumb: PropTypes.bool,
   columnFactory: PropTypes.func,
   dataSource: PropTypes.arrayOf(nodeSchema),
   selected: PropTypes.arrayOf(nodeSchema),
@@ -274,7 +275,8 @@ SelectorWithPanel.defaultProps = {
 
 SelectorWithPanel.childContextTypes = {
   tagName: PropTypes.string,
-  idKey: PropTypes.string
+  idKey: PropTypes.string,
+  noBreadcrumb: PropTypes.bool
 };
 
 export default SelectorWithPanel;

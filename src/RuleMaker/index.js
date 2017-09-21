@@ -93,6 +93,7 @@ class RuleMaker extends Component {
         ancestors={this.props.ancestors}
         selected={this.props.selected}
 
+        noBreadcrumb={this.props.noBreadcrumb}
         columnFactory={this.getColumns(this.props.columns, dataSource)}
         dataSource={dataSource}
         query={this.props.query}
@@ -128,7 +129,9 @@ RuleMaker.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     selected: PropTypes.oneOf(['included', 'excluded', undefined, null]),
     children: PropTypes.array
-  }))
+  })),
+
+  noBreadcrumb: Selector.propTypes.noBreadcrumb
 }
 
 RuleMaker.defaultProps = {

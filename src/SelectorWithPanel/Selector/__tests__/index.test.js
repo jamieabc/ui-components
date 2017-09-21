@@ -1,9 +1,20 @@
 import React from 'react';
-import DataTable, { Pagination } from '../../../src/DataTable';
-import SearchBox from '../../../src/SearchBox';
+import DataTable, { Pagination } from '../../../DataTable';
+import SearchBox from '../../../SearchBox';
 
-import Selector from '../../../src/SelectorWithPanel/Selector';
-import Breadcrumb from '../../../src/SelectorWithPanel/Selector/Breadcrumb';
+import Selector from '../../Selector';
+import Breadcrumb from '../Breadcrumb';
+
+describe('context.noBreadcrumb', () => {
+  it("doesn't render Breadcrumb when true", () => {
+    const context = { noBreadcrumb: false };
+    const wrapper = shallow(<Selector />, { context });
+    expect(wrapper.find(Breadcrumb).exists()).toBe(true);
+
+    wrapper.setContext({ noBreadcrumb: true });
+    expect(wrapper.find(Breadcrumb).exists()).toBe(false);
+  })
+})
 
 it('renders props.ancestors as a breadcrumb', () => {
   const ancestors = [{ prop_id: '1' }];

@@ -74,6 +74,8 @@ const Selector = (props, context) => {
     )
   })();
 
+  const hasBreadcrumb = !context.noBreadcrumb;
+
   return (
     <div className="panel panel-default pick-panel col-xs-6">
       <div className="panel-heading">
@@ -89,7 +91,7 @@ const Selector = (props, context) => {
         />
       </div>
 
-      <Breadcrumb path={props.ancestors} onClick={props.onQuery} />
+      {hasBreadcrumb && <Breadcrumb path={props.ancestors} onClick={props.onQuery} />}
 
       <div className="item-to-pick">
         <DataTable
@@ -166,7 +168,8 @@ Selector.defaultProps = {
 };
 
 Selector.contextTypes = {
-  idKey: PropTypes.string
+  idKey: PropTypes.string,
+  noBreadcrumb: PropTypes.bool
 };
 
 export default Selector;

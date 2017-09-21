@@ -27,7 +27,7 @@ const NestedBlock = (props, context) => {
   if (props.dataSource.length === 0) { return null; }
 
   return (
-    <div className="picked-items picked-items__height-breadcrumb">
+    <div className={props.className}>
       {build(props.dataSource, Object.assign({ idKey: context.idKey }, props))}
     </div>
   );
@@ -36,6 +36,7 @@ const NestedBlock = (props, context) => {
 NestedBlock.Row = Row;
 
 NestedBlock.propTypes = {
+  className: PropTypes.string,
   text: PropTypes.object,
   dataSource: PropTypes.arrayOf(nodeSchema),
   onRemove: PropTypes.func,

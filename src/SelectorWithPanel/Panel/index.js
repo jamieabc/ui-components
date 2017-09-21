@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 
 import BlockList from './BlockList';
 import nodeSchema from '../Schema/Node';
@@ -8,11 +9,14 @@ const SelectedPanel = (props, context) => {
   const collection = decoratedReserved.concat(props.selected);
   const emptyText = (() => {
     if (collection.length) { return null; }
+    const klassNames = classNames([
+      'panel-body', 'picked-items',
+      { 'picked-items__height-breadcrumb': !context.noBreadcrumb,
+        'picked-items__height-default'   : context.noBreadcrumb }
+    ]);
 
     return (
-      <div className="panel-body picked-items picked-items__height-breadcrumb">
-        {props.text.rightEmpty}
-      </div>
+      <div className={klassNames}>{props.text.rightEmpty}</div>
     );
   })();
 
@@ -67,7 +71,8 @@ SelectedPanel.defaultProps = {
 };
 
 SelectedPanel.contextTypes = {
-  idKey: PropTypes.string
+  idKey: PropTypes.string,
+  noBreadcrumb: PropTypes.bool
 };
 
 export default SelectedPanel;
