@@ -1,23 +1,25 @@
+import jQuery from 'jquery';
 import datepicker from './lib/datepicker';
 import uniq from 'lodash/uniq';
-import React, { Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
 import moment from 'moment-timezone';
 
-class CustomDialog extends Component{
+class CustomDialog extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       focusOn: 'start',
       startText: moment.tz(props.start_at, props.tzName).format(props.dateFormat) || '',
-      endText: (props.end_at && moment.tz(props.end_at, props.tzName).format(props.dateFormat)) || ''
+      endText:
+        (props.end_at && moment.tz(props.end_at, props.tzName).format(props.dateFormat)) || ''
       // defaultDate: moment.tz(props.start_at, props.tzName).format(props.dateFormat)
     };
 
-    this.handleChangeDate = (date) => {
+    this.handleChangeDate = date => {
       let startText;
       let endText;
       let focusOn = this.state.focusOn;
@@ -46,7 +48,7 @@ class CustomDialog extends Component{
       });
     };
 
-    this.handleFocusChange = (e) => {
+    this.handleFocusChange = e => {
       const input = e.target;
       if (this.state.focusOn !== input.name) {
         this.setState({
@@ -56,7 +58,7 @@ class CustomDialog extends Component{
       }
     };
 
-    this.handleInputChange = (e) => {
+    this.handleInputChange = e => {
       const input = e.currentTarget;
       let newState = {};
       newState[`${input.name}Text`] = input.value;
@@ -66,7 +68,7 @@ class CustomDialog extends Component{
       this.setState(newState);
     };
 
-    this.handleInputBlur = (e) => {
+    this.handleInputBlur = e => {
       const input = e.currentTarget;
       const date = input.value;
       const isValid = moment(date, this.props.dateFormat, true).isValid();
@@ -77,14 +79,22 @@ class CustomDialog extends Component{
         newState[input.name] = null;
         newState[`${input.name}Text`] = '';
         this.setState(newState);
-        $(findDOMNode(this)).find('#date_range_datepicker').datepicker('setDate', null);
+        $(findDOMNode(this))
+          .find('#date_range_datepicker')
+          .datepicker('setDate', null);
       }
     };
 
     this.handleApply = () => {
       this.props.onHide();
-      const start = moment.tz(this.state.startText, this.props.dateFormat, this.props.tzName).startOf('day').valueOf();
-      const end = moment.tz(this.state.endText, this.props.dateFormat, this.props.tzName).endOf('day').valueOf();
+      const start = moment
+        .tz(this.state.startText, this.props.dateFormat, this.props.tzName)
+        .startOf('day')
+        .valueOf();
+      const end = moment
+        .tz(this.state.endText, this.props.dateFormat, this.props.tzName)
+        .endOf('day')
+        .valueOf();
 
       this.props.onSubmit('custom', start, end);
     };
@@ -95,7 +105,9 @@ class CustomDialog extends Component{
       const $datepicker = $dialog.find('#date_range_datepicker');
       let defaultDate;
       if (self.state.focusOn === 'end' && self.state.endText) {
-        const twoMonthAgo = moment(self.state.endText).subtract(2, 'months').format('YYYY/MM/DD');
+        const twoMonthAgo = moment(self.state.endText)
+          .subtract(2, 'months')
+          .format('YYYY/MM/DD');
         defaultDate = twoMonthAgo < self.state.startText ? self.state.startText : twoMonthAgo;
       } else {
         defaultDate = self.state.startText;
@@ -138,14 +150,14 @@ class CustomDialog extends Component{
         }
       });
       if (self.state.focusOn === 'end') {
-        $datepicker.datepicker("option", "defaultDate", null);
+        $datepicker.datepicker('option', 'defaultDate', null);
       }
     };
   }
 
   componentDidMount() {
     this.setupDatepicker();
-    $('#date_range_custom_dialog').on('change', 'input', (e) => {
+    $('#date_range_custom_dialog').on('change', 'input', e => {
       this.handleInputBlur(e);
     });
   }
@@ -155,13 +167,22 @@ class CustomDialog extends Component{
   }
 
   componentWillUnmount() {
-    $(findDOMNode(this)).find('#date_range_datepicker').datepicker('destroy');
+    $(findDOMNode(this))
+      .find('#date_range_datepicker')
+      .datepicker('destroy');
   }
 
   render() {
-    const disableSubmit = (this.state.startText && this.state.endText) ? false : true;
+    const disableSubmit = this.state.startText && this.state.endText ? false : true;
     return (
-      <Modal show={this.props.show} onHide={this.props.onHide} bsSize="large" id="date_range_custom_dialog" backdrop="static" animation={false}>
+      <Modal
+        show={this.props.show}
+        onHide={this.props.onHide}
+        bsSize="large"
+        id="date_range_custom_dialog"
+        backdrop="static"
+        animation={false}
+      >
         <Modal.Header closeButton>
           <Modal.Title>{this.props.title}</Modal.Title>
         </Modal.Header>
@@ -190,7 +211,9 @@ class CustomDialog extends Component{
           <div id="date_range_datepicker" />
         </Modal.Body>
         <Modal.Footer>
-          <Button bsStyle="primary" onClick={this.handleApply} disabled={disableSubmit}>{this.props.applyText}</Button>
+          <Button bsStyle="primary" onClick={this.handleApply} disabled={disableSubmit}>
+            {this.props.applyText}
+          </Button>
         </Modal.Footer>
       </Modal>
     );
