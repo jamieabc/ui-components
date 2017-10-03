@@ -1,4 +1,3 @@
-import jQuery from 'jquery';
 import datepicker from './lib/datepicker';
 import uniq from 'lodash/uniq';
 import React, { Component, PropTypes } from 'react';
